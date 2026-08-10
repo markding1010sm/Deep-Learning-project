@@ -38,3 +38,16 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
+
+# NVIDIA GPU users: this pins torch to the CUDA 12.8 build so training uses
+# the GPU. If `uv run python -c "import torch; print(torch.cuda.is_available())"`
+# prints False on your machine, pick the index matching your driver from
+# https://pytorch.org/get-started/locally/, swap the URL below, then run
+# `uv lock && uv sync --dev` again. CPU-only machines can remove this block.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu128" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
