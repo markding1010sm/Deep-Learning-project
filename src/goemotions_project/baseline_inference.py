@@ -34,7 +34,11 @@ class BaselinePredictor:
         )
         if self.model.classifier[-1].out_features != NUM_LABELS:
             raise ValueError(f"Expected {NUM_LABELS} labels in the classifier head")
-        state_dict = torch.load(self.model_dir / "model.pt", map_location=self.device)
+        state_dict = torch.load(
+            self.model_dir / "model.pt",
+            map_location="cpu",
+            weights_only=True,
+        )
         self.model.load_state_dict(state_dict)
         self.model.to(self.device)
         self.model.eval()
