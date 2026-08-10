@@ -1,0 +1,42 @@
+{
+  "data": {
+    "dataset_config": "simplified",
+    "dataset_name": "google-research-datasets/go_emotions",
+    "max_length": 64,
+    "vocab_size": 13161
+  },
+  "experiment": {
+    "class_weighted": false,
+    "epochs": 10,
+    "freeze_embeddings": false,
+    "learning_rate": 0.001,
+    "name": "finetune_embeddings",
+    "pos_weight_cap": 10.0
+  },
+  "model": {
+    "dropout": 0.3,
+    "embedding_dim": 300,
+    "hidden_dim": 256
+  },
+  "thresholds": [
+    0.1,
+    0.15000000000000002,
+    0.20000000000000004,
+    0.25000000000000006,
+    0.30000000000000004,
+    0.3500000000000001,
+    0.40000000000000013,
+    0.45000000000000007,
+    0.5000000000000001,
+    0.5500000000000002,
+    0.6000000000000002,
+    0.6500000000000001,
+    0.7000000000000002
+  ],
+  "training": {
+    "batch_size": 64,
+    "epochs_run": 10,
+    "seed": 42,
+    "weight_decay": 0.0
+  }
+}
