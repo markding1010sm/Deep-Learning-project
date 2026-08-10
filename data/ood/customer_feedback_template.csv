@@ -1,2 +1,37 @@
 id,text,annotator,labels,notes,split
-
+ood001,"This is the third time my order has arrived late. I'm done giving you guys chances.",draft,anger|disappointment,review,ood_test
+ood002,"Wait, why was I charged twice for the same subscription this month?",draft,confusion|annoyance,review,ood_test
+ood003,"Just wanted to say your support agent Sarah was incredibly patient with me today. Thank you!",draft,gratitude|admiration,review,ood_test
+ood004,"The new update completely broke the checkout page. I couldn't finish my purchase.",draft,annoyance|disappointment,review,ood_test
+ood005,"Honestly did not expect the refund to process this fast. Really relieved.",draft,relief|surprise,review,ood_test
+ood006,"I've emailed three times and still no response. Is anyone even reading these?",draft,annoyance|disapproval,review,ood_test
+ood007,"Not sure how to reset my password, the link in the email doesn't seem to work.",draft,confusion,review,ood_test
+ood008,"Love the redesign, it's so much easier to navigate now!",draft,love|admiration,review,ood_test
+ood009,"This is unacceptable. I paid for express shipping and it's been two weeks.",draft,anger|disapproval,review,ood_test
+ood010,"Can you clarify what 'processing' means for my order status? It's been stuck for days.",draft,confusion|curiosity,review,ood_test
+ood011,"I'm a bit nervous about upgrading my plan, will I lose my saved data?",draft,nervousness,review,ood_test
+ood012,"The product looks nothing like the pictures on the website. Pretty disappointed.",draft,disappointment,review,ood_test
+ood013,"Wow, I did not expect same-day delivery, that's amazing service!",draft,excitement|surprise,review,ood_test
+ood014,"Sorry for the confusion earlier, I found the setting myself, thanks for your patience.",draft,remorse|gratitude,review,ood_test
+ood015,"Your customer service team went above and beyond to fix my issue. I'm impressed.",draft,admiration|gratitude,review,ood_test
+ood016,"Why is the app crashing every time I try to upload a photo?",draft,annoyance|confusion,review,ood_test
+ood017,"I appreciate the quick response, that really eased my worries.",draft,gratitude|relief,review,ood_test
+ood018,"This is disgusting, I found a piece of plastic in my food delivery.",draft,disgust|anger,review,ood_test
+ood019,"Just curious, is there a way to export my data before I cancel my account?",draft,curiosity,review,ood_test
+ood020,"I'm really proud of how far this app has come since I started using it two years ago.",draft,pride|admiration,review,ood_test
+ood021,"The billing page is so confusing, I have no idea what I'm being charged for.",draft,confusion,review,ood_test
+ood022,"Thanks for fixing the bug so quickly, you guys are the best!",draft,gratitude|admiration,review,ood_test
+ood023,"I feel like my complaint is being ignored. This is getting frustrating.",draft,annoyance|disapproval,review,ood_test
+ood024,"Everything about this experience has been smooth. No complaints at all.",draft,approval,review,ood_test
+ood025,"I'm sad to see this feature go, I used it every day.",draft,sadness,review,ood_test
+ood026,"Can't believe how rude the support agent was on the phone just now.",draft,anger|disapproval,review,ood_test
+ood027,"Just a heads up, the FAQ link on your homepage is broken.",draft,neutral,review,ood_test
+ood028,"This update is a huge improvement, really excited to try the new features.",draft,excitement|optimism,review,ood_test
+ood029,"I was worried I'd lose my progress, but it saved everything perfectly. Phew.",draft,relief|nervousness,review,ood_test
+ood030,"Still waiting on a callback from three days ago. Starting to lose patience.",draft,annoyance|disappointment,review,ood_test
+ood031,"The packaging was damaged but the product inside was fine, so no big deal.",draft,neutral,review,ood_test
+ood032,"I really don't understand why my account got suspended without warning.",draft,confusion|annoyance,review,ood_test
+ood033,"Thank you so much for the birthday discount, that was such a nice surprise!",draft,gratitude|surprise,review,ood_test
+ood034,"This is the worst experience I've had with an online store, honestly.",draft,anger|disapproval,review,ood_test
+ood035,"Hoping the new feature rollout goes well next week, fingers crossed.",draft,optimism|nervousness,review,ood_test
+ood036,"The support chatbot couldn't understand my question at all, kind of embarrassing to have to repeat myself five times.",draft,annoyance|embarrassment,review,ood_test
