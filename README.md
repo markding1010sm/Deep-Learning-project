@@ -44,6 +44,9 @@ The course recommends `uv` for package management.
 uv sync --dev
 ```
 
+The lock file selects CUDA 12.8 PyTorch wheels on Linux and Windows. On macOS, uv falls back to
+the native PyPI wheel so Apple Silicon machines can use the MPS backend.
+
 Run the tests and code checks:
 
 ```bash

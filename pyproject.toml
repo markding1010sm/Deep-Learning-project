@@ -41,13 +41,12 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
 
-# NVIDIA GPU users: this pins torch to the CUDA 12.8 build so training uses
-# the GPU. If `uv run python -c "import torch; print(torch.cuda.is_available())"`
-# prints False on your machine, pick the index matching your driver from
-# https://pytorch.org/get-started/locally/, swap the URL below, then run
-# `uv lock && uv sync --dev` again. CPU-only machines can remove this block.
+# Use the CUDA 12.8 wheel on Linux and Windows. macOS falls back to PyPI,
+# whose native wheel supports Apple MPS when the hardware provides it.
 [tool.uv.sources]
-torch = [{ index = "pytorch-cu128" }]
+torch = [
+    { index = "pytorch-cu128", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
 
 [[tool.uv.index]]
 name = "pytorch-cu128"
