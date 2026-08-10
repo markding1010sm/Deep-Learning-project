@@ -1,0 +1,22 @@
+.DS_Store
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+notebooks/.ipynb_checkpoints/
+
+# Local datasets, checkpoints, and generated outputs
+data/raw/
+data/processed/
+models/*.pt
+models/*.pth
+models/*.bin
+models/*.safetensors
+results/*.csv
+results/*.json
+results/*.png
+

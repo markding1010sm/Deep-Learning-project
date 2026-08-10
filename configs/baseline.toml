@@ -1,0 +1,17 @@
+[data]
+dataset_name = "google-research-datasets/go_emotions"
+dataset_config = "simplified"
+max_length = 128
+
+[model]
+embedding_dim = 300
+hidden_dim = 256
+dropout = 0.30
+
+[training]
+batch_size = 64
+learning_rate = 0.001
+epochs = 10
+threshold = 0.50
+seed = 42
+

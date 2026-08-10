@@ -1,0 +1,40 @@
+[project]
+name = "goemotions-project"
+version = "0.1.0"
+description = "Fine grained emotion classification with a neural baseline and DistilBERT"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "datasets>=3.0",
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "plotly>=5.24",
+    "scikit-learn>=1.5",
+    "streamlit>=1.39",
+    "torch>=2.4",
+    "transformers>=4.45",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.7",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/goemotions_project"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
