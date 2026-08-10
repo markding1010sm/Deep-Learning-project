@@ -1,7 +1,9 @@
 [data]
 dataset_name = "google-research-datasets/go_emotions"
 dataset_config = "simplified"
-max_length = 128
+max_length = 64
+max_vocab_size = 30000
+min_token_freq = 2
 
 [model]
 embedding_dim = 300
@@ -10,8 +12,44 @@ dropout = 0.30
 
 [training]
 batch_size = 64
-learning_rate = 0.001
-epochs = 10
-threshold = 0.50
+weight_decay = 0.0
 seed = 42
 
+[threshold]
+minimum = 0.10
+maximum = 0.70
+step = 0.05
+
+[experiments.finetune_embeddings]
+epochs = 10
+learning_rate = 0.001
+freeze_embeddings = false
+class_weighted = false
+
+[experiments.frozen_embeddings]
+epochs = 10
+learning_rate = 0.001
+freeze_embeddings = true
+class_weighted = false
+
+[experiments.class_weighted]
+epochs = 10
+learning_rate = 0.001
+freeze_embeddings = false
+class_weighted = true
+pos_weight_cap = 10.0
+
+# Learning-rate sweep around finetune_embeddings' lr=0.001, holding everything
+# else fixed, so the best rate is chosen by evidence rather than left at the
+# first value that was tried.
+[experiments.lr_low]
+epochs = 10
+learning_rate = 0.0003
+freeze_embeddings = false
+class_weighted = false
+
+[experiments.lr_high]
+epochs = 10
+learning_rate = 0.003
+freeze_embeddings = false
+class_weighted = false
