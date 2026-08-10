@@ -1,17 +1,39 @@
 [data]
 dataset_name = "google-research-datasets/go_emotions"
 dataset_config = "simplified"
-max_length = 128
+max_length = 64
 
 [model]
-checkpoint = "google/distilbert-base-uncased"
+checkpoint = "distilbert/distilbert-base-uncased"
 num_labels = 28
 
 [training]
 batch_size = 16
-learning_rate = 0.00002
-epochs = 3
 weight_decay = 0.01
-threshold = 0.50
+warmup_ratio = 0.10
+gradient_clip = 1.0
 seed = 42
 
+[threshold]
+minimum = 0.10
+maximum = 0.70
+step = 0.05
+
+[experiments.frozen_encoder]
+epochs = 5
+learning_rate = 0.001
+freeze_encoder = true
+class_weighted = false
+
+[experiments.full_finetune]
+epochs = 3
+learning_rate = 0.00002
+freeze_encoder = false
+class_weighted = false
+
+[experiments.class_weighted]
+epochs = 3
+learning_rate = 0.00002
+freeze_encoder = false
+class_weighted = true
+pos_weight_cap = 10.0

@@ -1,12 +1,17 @@
 """Print a fast first pass summary of the GoEmotions dataset."""
 
+import sys
 from collections import Counter
+from pathlib import Path
 
-from goemotions_project.data import load_goemotions
-from goemotions_project.labels import EMOTION_LABELS
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 
 
 def main() -> None:
+    from goemotions_project.data import load_goemotions
+    from goemotions_project.labels import EMOTION_LABELS
+
     dataset = load_goemotions()
     print("Split sizes")
     for split_name, split in dataset.items():
@@ -23,4 +28,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
