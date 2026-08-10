@@ -8,6 +8,8 @@ __pycache__/
 .coverage
 htmlcov/
 notebooks/.ipynb_checkpoints/
+.training_runs/
+*.egg-info/
 
 # Local datasets, checkpoints, and generated outputs
 data/raw/
@@ -19,4 +21,3 @@ models/*.safetensors
 results/*.csv
 results/*.json
 results/*.png
-

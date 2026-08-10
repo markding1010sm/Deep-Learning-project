@@ -28,7 +28,7 @@ comments to customer feedback style text?
 ├── app/                         Streamlit application
 ├── configs/                     Training configurations
 ├── data/ood/                    Human labeled out of domain test set
-├── models/                      Local model checkpoints, ignored by Git
+├── models/                      Published best model and local checkpoints
 ├── notebooks/                   Exploration notebooks
 ├── results/                     Metrics and generated figures
 ├── scripts/                     EDA and model smoke test commands
@@ -63,6 +63,39 @@ Check that both model architectures can perform a forward pass:
 uv run python scripts/smoke_test_models.py
 ```
 
+Run a small end-to-end DistilBERT smoke experiment:
+
+```bash
+uv run python scripts/train_distilbert.py \
+  --experiments frozen_encoder \
+  --max-train-samples 64 \
+  --max-eval-samples 32 \
+  --max-test-samples 32 \
+  --epochs-override 1 \
+  --run-root .training_runs/smoke \
+  --results-dir .training_runs/smoke_results \
+  --final-model-dir .training_runs/smoke_model
+```
+
+Run all final DistilBERT experiments:
+
+```bash
+uv run python scripts/train_distilbert.py
+```
+
+Resume an interrupted run:
+
+```bash
+uv run python scripts/train_distilbert.py --resume
+```
+
+Run one command-line prediction after training:
+
+```bash
+uv run python scripts/predict_distilbert.py \
+  "I finally finished the project, but I am nervous about presenting it."
+```
+
 Start the web application:
 
 ```bash
@@ -94,7 +127,36 @@ in the final error analysis.
 
 ## Current status
 
-The repository currently provides the project structure, data loader, model definitions, metric
-helpers, a web interface shell, and tests. Training loops, saved checkpoints, and final experiment
-results still need to be completed by the team.
+The repository provides the project structure, data loader, model definitions, metric helpers,
+DistilBERT experiment runner, resumable checkpoints, inference interface, Streamlit integration,
+and tests. The committed experiment tables and best checkpoint document the latest completed run.
 
+## DistilBERT experiment design
+
+Three controlled experiments use the same official dataset splits, label order, validation
+threshold search, and test evaluation code:
+
+1. A frozen encoder experiment trains only the DistilBERT classification head.
+2. Full fine tuning updates all DistilBERT parameters.
+3. Class weighted fine tuning uses capped square-root positive weights computed from the training
+   split only.
+
+The global prediction threshold is selected on the validation split from 0.10 through 0.70 in
+steps of 0.05. The final model is selected by validation macro F1. Model weights are stored with
+Git LFS, so collaborators should run `git lfs pull` after cloning or pulling the repository.
+
+## DistilBERT results
+
+The final experiments were trained with seed 42 on Apple M5 using the MPS backend. Validation
+metrics selected both the epoch and global threshold. The official test split was evaluated only
+after those choices were locked.
+
+| Experiment | Best epoch | Threshold | Validation Macro F1 | Validation Micro F1 | Test Macro F1 | Test Micro F1 | Training time |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Frozen encoder | 5 | 0.15 | 0.3694 | 0.4989 | 0.3578 | 0.4933 | 5.8 min |
+| Full fine tuning | 3 | 0.20 | 0.4737 | 0.5979 | 0.4624 | 0.5975 | 24.8 min |
+| Class weighted fine tuning | 2 | 0.60 | **0.5128** | 0.5814 | **0.5057** | 0.5767 | 24.7 min |
+
+Class weighted fine tuning is the published model because it achieved the highest validation
+Macro F1. Its default inference threshold is 0.60. Detailed metrics, per-label scores, test
+predictions, and error-analysis fields are available in `results/distilbert/`.
