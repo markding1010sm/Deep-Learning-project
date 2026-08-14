@@ -18,7 +18,8 @@ comments to customer feedback style text?
 4. Train three controlled DistilBERT experiments.
 5. Select checkpoints and global thresholds using validation Macro F1 only.
 6. Evaluate the locked models on the official test split.
-7. Publish the best checkpoints and connect both models to Streamlit.
+7. Evaluate the same locked models on 50 human reviewed customer feedback messages.
+8. Publish the best checkpoints and connect both models to Streamlit.
 
 ## Repository structure
 
@@ -112,6 +113,12 @@ Inspect common Baseline errors after training:
 uv run python scripts/analyze_baseline_errors.py
 ```
 
+Evaluate both locked models on the out of domain customer feedback set:
+
+```bash
+uv run python scripts/evaluate_ood.py
+```
+
 Start the web application:
 
 ```bash
@@ -159,9 +166,11 @@ Run `uv run python scripts/eda.py` to regenerate the committed EDA artifacts:
 ## Current status
 
 The repository contains completed GloVe plus MLP and DistilBERT training pipelines, published best
-checkpoints, test predictions, per-label metrics, EDA artifacts, error-analysis utilities, and a
-Streamlit interface for both models. The codebase currently has 19 automated tests covering data,
-metrics, inference, checkpoint loading, and the Baseline Streamlit interaction.
+checkpoints, in domain and out of domain test predictions, per-label metrics, EDA artifacts,
+error-analysis utilities, and a Streamlit interface for both models. The out of domain evaluation
+uses 50 human reviewed customer feedback messages with each model's locked validation threshold.
+The codebase currently has 19 automated tests covering data, metrics, inference, checkpoint
+loading, and the Baseline Streamlit interaction.
 
 ## DistilBERT experiment design
 
@@ -231,6 +240,21 @@ DistilBERT improves Test Macro F1 by 0.0754 and Test Micro F1 by 0.0696 over the
 Baseline. Training-time measurements should not be treated as a controlled hardware comparison:
 the DistilBERT experiments ran on Apple M5 MPS, while the Baseline experiments ran on Windows
 CUDA.
+
+## Out of domain customer feedback results
+
+The final generalization check applies the models' locked thresholds to 50 human reviewed customer
+feedback messages. These messages were not used for training, model selection, or threshold tuning.
+
+| Model | Locked threshold | OOD Macro F1 | OOD Micro F1 | Exact match |
+| --- | ---: | ---: | ---: | ---: |
+| GloVe + MLP | 0.50 | 0.5728 | 0.5185 | 18% |
+| DistilBERT | 0.60 | **0.6470** | **0.6538** | **34%** |
+
+On this same 50-message set, DistilBERT improves Macro F1 by 0.0742, Micro F1 by 0.1353, and
+exact match by 16 percentage points. Treat these numbers as exploratory: `grief` has no examples,
+and 15 of the 28 labels have support of two or fewer. Detailed predictions and per-label results
+are available in `results/ood/`.
 
 ## Streamlit application
 
